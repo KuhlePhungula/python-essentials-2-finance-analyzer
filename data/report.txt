@@ -1,0 +1,30 @@
+===== MONTHLY SUMMARY REPORT =====
+Run at 2026-09-18 12:53:31 on Windows 11 (Python 3.13.1)
+
+Transactions loaded: 8
+Rows rejected: 7
+Final balance: 2173.65
+
+Category breakdown:
+Food: -136.35
+Salary: 2500.00
+Freelance: -300.00
+Health: -40.00
+Bonus: 150.00
+
+Duplicate transactions found: 0
+
+Unusual transactions (outliers) found: 1
+2026-07-25 Monthly Salary +2500.00 Salary
+
+Sign/category mismatches found: 1
+2026-08-07 Freelance Payment -300.00 Freelance
+
+Rejected rows:
+row 4: Expected 4 fields, got 1
+row 5: Expected 4 fields, got 3
+row 6: Expected 4 fields, got 1
+row 7: could not convert string to float: 'twelve'
+row 13: '2026-02-30' is not a valid date
+row 14: Description is empty.
+row 15: 'nan' is not a valid number
