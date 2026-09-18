@@ -1,4 +1,4 @@
-# Transaction class, featuring date, description, amount, and category, for a siingle transaction
+# Transaction class, featuring date, description, amount, and category, for a slingle transaction
 
 class Transaction:
     # class variable: counting how many transactions are created
@@ -12,11 +12,11 @@ class Transaction:
 
         Transaction.count += 1
 
-    # retuens True if the transaction is money coming in
+    # returns True if the transaction is money coming in
     def is_income(self):
         return self.amount > 0
 
-    # formatted method returning a simple one line transaction daya
+    # formatted method returning a simple one line transaction data
     def formatted(self):
         sign = "+" if self.amount >= 0 else "-"
         return f"{self.date} {self.description} {sign}{abs(self.amount):.2f} {self.category}"
