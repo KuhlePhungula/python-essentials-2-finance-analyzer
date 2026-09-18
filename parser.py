@@ -17,7 +17,7 @@ def generate_sample_file(path=sample_file_path):
         "2026-08-05,Refund,150.00",                 # missing category field
         "not a transaction line at all",            # junk line
         "2026-08-06,Bookstore,twelve,Entertainment",    # non-numeric amount
-        "2026-08-01,Grocery Store,-54.30,Food",         # duplicate
+        "2026-08-01,Grocery Store,-54.80,Food",         # duplicate
         "2026-08-07,Freelance Payment,-300.00,Freelance",       # sign and category mismatch
         "  2026-08-08 ,  Gym Membership , -40.00 , Health  ",   # blank space
         "2026-08-09,Holiday Bonus,150.00,Bonus",
