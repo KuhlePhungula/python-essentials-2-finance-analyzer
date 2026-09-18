@@ -32,3 +32,32 @@ def find_duplicates(transactions):
             seen.add(signature)
     return duplicates
 
+
+def find_outliers(transactions, num_std_devs=2):
+    if len(transactions) < 2:
+        return []
+
+    amounts = [transaction.amount for transaction in transactions]
+    mean = sum(amounts) / len(amounts)
+
+    variance = sum((amount - mean) ** 2 for amount in amounts) / len(amounts)
+    std_dev = variance ** 0.5
+
+    if std_dev == 0:
+        return []
+
+    outliers = []
+    for transaction in transactions:
+        distance = abs(transaction.amount - mean) / std_dev
+        if distance > num_std_devs:
+            outliers.append(transaction)
+
+    return outliers
+
+# sum the amounts in each category
+def category_totals(transactions):
+    totals = {}
+    for transaction in transactions:
+        category = transaction.category
+        totals[category] = totals.get(category, 0.0) + transaction.amount
+    return totals
