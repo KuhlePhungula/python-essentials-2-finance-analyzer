@@ -47,4 +47,62 @@ def normalize_date(raw_date):
         raise ValueError(f"'{raw_date.strip()}' is not a valid date")
     return parsed.strftime("%Y-%m-%d")
 
+# read statement file and return (transactions, rejected)
+def load_transactions(path):
 
+    transactions = []
+    rejections = []
+
+    try:
+        with open(path, "r") as f:
+            raw_lines = f.readlines()
+    except FileNotFoundError:
+        print(f"Could not find statement file: {path}")
+        return transactions, [f"file not found: {path}"]
+
+    if len(raw_lines) == 0:
+        print(f"Statement file is empty: {path}")
+        return transactions, [f"file is empty: {path}"]
+
+    for row_number, raw_line in enumerate(raw_lines, start=1):
+        line = raw_line.strip()
+
+        if line == "":
+            continue
+
+        try:
+            fields = line.split(",")
+            if len(fields) != 4:
+                raise ValueError(f"Expected 4 fields, got {len(fields)}")
+
+            date_str = normalize_date(fields[0])
+
+            description = fields[1].strip()
+            if description == "":
+                raise ValueError("Description is empty.")
+
+            amount = float(fields[2].strip())
+            if amount != amount or abs(amount) == float("inf"):
+                raise ValueError(f"'{fields[2].strip()}' is not a valid number")
+
+            category = fields[3].strip()
+            if category == "":
+                raise ValueError("Category is empty.")
+
+            transactions.append(Transaction(date_str, description, amount, category))
+
+        except ValueError as error:
+            rejections.append(f"row {row_number}: {error}")
+        except Exception as error:
+            rejections.append(f"Row {row_number}: unexpected error - {error}")
+
+    return transactions, rejections
+
+if __name__ == "___main__":
+    generate_sample_file()
+    valid_transactions, rejected_rows = load_transactions(sample_file_path)
+
+    print(f"{len(valid_transactions)} transactions loaded successfully.")
+    print(f"{len(rejected_rows)} rows rejected:")
+    for reason in rejected_rows:
+        print(f" - {reason}")
