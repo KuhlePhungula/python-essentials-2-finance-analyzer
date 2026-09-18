@@ -4,7 +4,7 @@
 def running_balance(transactions, start=0.0):
     balance = start
     for transaction in transactions:
-        balance += transactions.amount
+        balance += transaction.amount
         yield balance
 
 # closure - returns a function that flags any transaction whose amount magnitude is bigger than the remembered threshold
